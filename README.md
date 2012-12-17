@@ -19,10 +19,11 @@ Tested on:
 * Vagrant, Chef-Solo, Ubuntu 12.04
 
 ## Cookbooks:
-ant (git://github.com/opscode-cookbooks/ant.git)
-java (git://github.com/opscode-cookbooks/java.git)
-jenkins (git://github.com/heavywater/chef-jenkins.git)
-php (git://github.com/opscode-cookbooks/php.git)
+
+* ant (git://github.com/opscode-cookbooks/ant.git)
+* java (git://github.com/opscode-cookbooks/java.git)
+* jenkins (git://github.com/heavywater/chef-jenkins.git)
+* php (git://github.com/opscode-cookbooks/php.git)
 
 
 Usage
