@@ -32,7 +32,7 @@ directory "#{node['jenkins']['server']['home']}/jobs/php-template/" do
 end
 
 template "#{node['jenkins']['server']['home']}/jobs/php-template/config.xml" do
-  source "config.xml"
+  source "config.xml.erb"
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['user']
   mode "0644"
