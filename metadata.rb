@@ -3,7 +3,7 @@ description 'Installs and configures jenkins for use with php as described here:
 maintainer 'Anusch Athari'
 maintainer_email 'anusch@athari.de'
 
-licensing 'CC0 1.0 Universal - Public Domain'
+license 'CC0 1.0 Universal - Public Domain'
 
 depends 'java'
 depends 'ant'
