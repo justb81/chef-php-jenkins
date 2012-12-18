@@ -5,7 +5,7 @@ include_recipe "php"
 php_pear "pear.phpqatools.org/phpqatools" do
   action :install
 end
-php_pear " pear.netpirates.net/phpDox" do
+php_pear "pear.netpirates.net/phpDox" do
   action :install
 end
 
