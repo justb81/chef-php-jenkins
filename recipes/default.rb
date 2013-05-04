@@ -1,15 +1,60 @@
 include_recipe "jenkins"
+
 include_recipe "ant"
-
 include_recipe "php"
-php_pear "pear.phpqatools.org/phpqatools" do
-  action :install
-end
-php_pear "pear.netpirates.net/phpDox" do
+
+# Install SCM
+package "git-core" do
   action :install
 end
 
-#workaround for https://github.com/fnichol/chef-jenkins/issues/9
+package "mercurial" do
+  action :install
+end
+
+# Install PHP modules and PEAR packages
+package "php5-xsl" do
+  action :install
+end
+
+php_pear_channel "pear.symfony.com" do
+  action :discover
+end
+
+php_pear_channel "components.ez.no" do
+  action :discover
+end
+
+php_pear_channel "pear.phpunit.de" do
+  action :discover
+end
+php_pear_channel "pear.pdepend.org" do
+  action :discover
+end
+php_pear_channel "pear.phpmd.org" do
+  action :discover
+end
+
+pr = php_pear_channel "pear.phpqatools.org" do
+  action :discover
+end
+pn = php_pear_channel "pear.netpirates.net" do
+  action :discover
+end
+
+php_pear "phpqatools" do
+  channel pr.channel_name
+  action :install
+end
+php_pear "phpDox" do
+  preferred_state "alpha"
+  channel pn.channel_name
+  action :install
+end
+
+ENV['JENKINS_URL'] = node['jenkins']['server']['url']  
+
+# workaround for https://github.com/fnichol/chef-jenkins/issues/9
 directory "#{node['jenkins']['server']['home']}/updates/" do
   owner node['jenkins']['server']['user']
   group node['jenkins']['server']['user']
@@ -23,7 +68,7 @@ execute "update jenkins update center" do
   creates "#{node['jenkins']['server']['home']}/updates/default.json"
 end
 
-jenkins_cli "install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git"
+execute "jenkins-cli install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
 
 directory "#{node['jenkins']['server']['home']}/jobs/php-template/" do
   owner node['jenkins']['server']['user']
@@ -38,4 +83,4 @@ template "#{node['jenkins']['server']['home']}/jobs/php-template/config.xml" do
   mode "0644"
 end
 
-jenkins_cli "safe-restart"
+execute "jenkins-cli safe-restart"
