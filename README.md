@@ -1,7 +1,7 @@
 chef-php-jenkins
 ================
 
-[![Build Status](https://travis-ci.org/anusch-athari/chef-php-jenkins.png?branch=master)](https://travis-ci.org/anusch-athari/chef-php-jenkins)
+Still under development
 
 Description
 ===========
@@ -16,13 +16,13 @@ Requirements
 
 Tested on:
 
-* Vagrant, Chef-Solo, Ubuntu 12.04
+* Chef-Solo, Ubuntu 12.04
 
 ## Cookbooks:
 
 * ant (git://github.com/opscode-cookbooks/ant.git)
 * java (git://github.com/opscode-cookbooks/java.git)
-* jenkins (git://github.com/heavywater/chef-jenkins.git)
+* -jenkins (git://github.com/heavywater/chef-jenkins.git)-
 * php (git://github.com/opscode-cookbooks/php.git)
 
 
@@ -34,7 +34,8 @@ Simply include the php-jenkins recipe.
 License and Author
 ==================
 
-Author:: Anusch Athari (<anusch@athari.de>) [![endorse](http://api.coderwall.com/anusch-athari/endorsecount.png)](http://coderwall.com/anusch-athari)
+Author: Paolo Agostinetto (<paul.ago@gmail.com>)
+Original author: Anusch Athari (<anusch@athari.de>) [![endorse](http://api.coderwall.com/anusch-athari/endorsecount.png)](http://coderwall.com/anusch-athari)
 
 To the extent possible under law, the author(s) have dedicated all copyright and
 related and neighboring rights to this software to the public domain worldwide.
