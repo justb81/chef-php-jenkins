@@ -3,6 +3,10 @@ include_recipe "jenkins"
 include_recipe "ant"
 include_recipe "php"
 
+package "build-essential" do
+  action :install
+end
+
 # Install SCM
 package "git-core" do
   action :install
@@ -17,7 +21,11 @@ package "php5-xsl" do
   action :install
 end
 
-php_pear_channel "pear.symfony.com" do
+sr = php_pear_channel "pear.symfony-project.com" do
+  action :discover
+end
+
+s2r = php_pear_channel "pear.symfony.com" do
   action :discover
 end
 
@@ -25,14 +33,88 @@ php_pear_channel "components.ez.no" do
   action :discover
 end
 
-php_pear_channel "pear.phpunit.de" do
+ur = php_pear_channel "pear.phpunit.de" do
   action :discover
 end
-php_pear_channel "pear.pdepend.org" do
-  action :discover
+#php_pear_channel "pear.pdepend.org" do
+#  action :discover
+#end
+#php_pear_channel "pear.phpmd.org" do
+#  action :discover
+#end
+
+# Install the latest version of PHPUnit who works with ZF 1
+
+php_pear "Finder" do
+  action :install
+  preferred_state :beta
+  channel s2r.channel_name
 end
-php_pear_channel "pear.phpmd.org" do
-  action :discover
+
+php_pear "YAML" do
+  action :install
+  version "1.0.2"
+  channel sr.channel_name
+end
+
+php_pear "PHPUnit_Selenium" do
+  action :install
+  version "1.0.1"
+  channel ur.channel_name
+end
+
+php_pear "Text_Template" do
+  action :install
+  version "1.0.0"
+  channel ur.channel_name
+end
+
+php_pear "PHPUnit_MockObject" do
+  action :install
+  version "1.0.3"
+  channel ur.channel_name
+end
+
+php_pear "PHP_Timer" do
+  action :install
+  version "1.0.0"
+  channel ur.channel_name
+end
+
+php_pear "File_Iterator" do
+  action :install
+  version "1.2.3"
+  channel ur.channel_name
+end
+
+php_pear "PHP_TokenStream" do
+  action :install
+  version "1.0.1"
+  channel ur.channel_name
+end
+
+php_pear "PHP_CodeCoverage" do
+  action :install
+  version "1.0.2"
+  channel ur.channel_name
+end
+
+php_pear "FinderFacade" do
+  action :install
+  version "1.0.4"
+  channel ur.channel_name
+end
+
+php_pear "DbUnit" do
+  action :install
+  version "1.0.0"
+  channel ur.channel_name
+end
+
+php_pear "PHPUnit" do
+  action :install
+  version "3.5.15"
+  channel ur.channel_name
 end
 
 pr = php_pear_channel "pear.phpqatools.org" do
@@ -42,15 +124,16 @@ pn = php_pear_channel "pear.netpirates.net" do
   action :discover
 end
 
-php_pear "phpqatools" do
-  channel pr.channel_name
+php_pear "phploc" do
+  channel ur.channel_name
   action :install
 end
-php_pear "phpDox" do
-  preferred_state "alpha"
-  channel pn.channel_name
-  action :install
-end
+
+#php_pear "phpDox" do
+#  preferred_state "alpha"
+#  channel pn.channel_name
+#  action :install
+#end
 
 ENV['JENKINS_URL'] = node['jenkins']['server']['url']  
 
