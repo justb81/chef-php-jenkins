@@ -1,4 +1,5 @@
 include_recipe "jenkins::server"
+include_recipe "jenkins::node_ssh"
 
 include_recipe "ant"
 include_recipe "php"
@@ -151,7 +152,12 @@ execute "update jenkins update center" do
   creates "#{node['jenkins']['server']['home']}/updates/default.json"
 end
 
-execute "jenkins-cli install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
+# depends on alias / script jenkins-cli
+# java -jar jenkins-cli.jar -s http://localhost:8080
+#['jenkins']['server']['url']
+#execute "java -jar jenkins-cli.jar -s #{node['jenkins']['server']['url']} install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
+jenkins_cli "install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
+
 
 directory "#{node['jenkins']['server']['home']}/jobs/php-template/" do
   owner node['jenkins']['server']['user']
@@ -166,4 +172,4 @@ template "#{node['jenkins']['server']['home']}/jobs/php-template/config.xml" do
   mode "0644"
 end
 
-execute "jenkins-cli safe-restart"
+jenkins_cli "safe-restart"
