@@ -1,4 +1,4 @@
-include_recipe "jenkins"
+include_recipe "jenkins::server"
 
 include_recipe "ant"
 include_recipe "php"
