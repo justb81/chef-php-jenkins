@@ -1,5 +1,4 @@
 include_recipe "jenkins::server"
-include_recipe "jenkins::node_ssh"
 
 include_recipe "ant"
 include_recipe "php"
