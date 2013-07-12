@@ -155,7 +155,7 @@ end
 # java -jar jenkins-cli.jar -s http://localhost:8080
 #['jenkins']['server']['url']
 #execute "java -jar jenkins-cli.jar -s #{node['jenkins']['server']['url']} install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
-jenkins_cli "install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
+jenkins_cli "install-plugin cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
 
 # load template from Sebastian Bergmanns repo
 php_jenkins_template_src = "#{Chef::Config[:file_cache_path]}/php-jenkins-template.xml"
