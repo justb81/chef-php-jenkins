@@ -22,7 +22,7 @@ Tested on:
 
 * ant (git://github.com/opscode-cookbooks/ant.git)
 * java (git://github.com/opscode-cookbooks/java.git)
-* -jenkins (git://github.com/heavywater/chef-jenkins.git)-
+* jenkins (git://github.com/opscode-cookbooks/jenkins.git)
 * php (git://github.com/opscode-cookbooks/php.git)
 
 
