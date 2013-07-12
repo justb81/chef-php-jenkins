@@ -158,18 +158,11 @@ end
 #execute "java -jar jenkins-cli.jar -s #{node['jenkins']['server']['url']} install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
 jenkins_cli "install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git mercurial"
 
-
-directory "#{node['jenkins']['server']['home']}/jobs/php-template/" do
-  owner node['jenkins']['server']['user']
-  group node['jenkins']['server']['user']
-  action :create
+# load template from Sebastian Bergmanns repo
+php_jenkins_template_src = "#{Chef::Config[:file_cache_path]}/php-jenkins-template.xml"
+remote_file php_jenkins_template_src do
+  source "https://raw.github.com/sebastianbergmann/php-jenkins-template/master/config.xml"
 end
-
-template "#{node['jenkins']['server']['home']}/jobs/php-template/config.xml" do
-  source "config.xml.erb"
-  owner node['jenkins']['server']['user']
-  group node['jenkins']['server']['user']
-  mode "0644"
-end
+jenkins_cli "create-job php-template #{php_jenkins_template_src}"
 
 jenkins_cli "safe-restart"
