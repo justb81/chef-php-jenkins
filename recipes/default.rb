@@ -163,6 +163,6 @@ php_jenkins_template_src = "#{Chef::Config[:file_cache_path]}/php-jenkins-templa
 remote_file php_jenkins_template_src do
   source "https://raw.github.com/sebastianbergmann/php-jenkins-template/master/config.xml"
 end
-jenkins_cli "create-job php-template #{php_jenkins_template_src}"
+jenkins_cli "create-job php-template < #{php_jenkins_template_src}"
 
 jenkins_cli "safe-restart"
